@@ -15,7 +15,7 @@ API_ENDPOINT = "https://api.youneedabudget.com/v1"
 # Make sure we have the YNAB token set as an environmental variable:
 YNAB_TOKEN = os.environ.get('YNAB_TOKEN')
 if not YNAB_TOKEN:
-    raise ValueError("YNAB_TOKEN is not set as an enviornmental variable")
+    raise ValueError("YNAB_TOKEN is not set as an environmental variable")
 
 
 class YNAB(object):

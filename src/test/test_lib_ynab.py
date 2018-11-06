@@ -1,9 +1,8 @@
-
 """
 Unit tests for lib_ynab
 
 Run with:
-    $ python -m unittest test.test_lib_ynab
+    $ python -m unittest -v test.test_lib_ynab
 """
 
 import unittest
@@ -14,6 +13,22 @@ import unittest
 from lib_ynab.api_interface import YNAB
 
 
+class TestInstantiation(unittest.TestCase):
+
+    def test_is_instance(self):
+        """Test basic instantiation"""
+        a = YNAB()
+        self.assertIsInstance(a, YNAB)
+
+    def test_is_initialized(self):
+        """Test YNAB class constructor sets attributes"""
+        a = YNAB()
+
+        # We should have a token and budget ID associated with the instance:
+        self.assertIsNotNone(a.token)
+        self.assertIsNotNone(a.budget_id)
+
+
 class TestApiInterface(unittest.TestCase):
 
     def setUp(self):
@@ -21,6 +36,7 @@ class TestApiInterface(unittest.TestCase):
         # Initialize:
         self.ynab = YNAB()
 
+        # Expected transaction keys from API
         self.transaction_keys = [
             'account_id',
             'account_name',
@@ -45,15 +61,9 @@ class TestApiInterface(unittest.TestCase):
     def tearDown(self):
         pass
 
-    def test_constructor(self):
-
-        # We should have a token and budget ID associated with the instance:
-        self.assertIsNotNone(self.ynab.token)
-        self.assertIsNotNone(self.ynab.budget_id)
-
     def test_get_transactions(self):
 
-        # Find the tranactions:
+        # Find the transactions:
         transactions = self.ynab.get_transactions()
 
         # We should have transactions available:
